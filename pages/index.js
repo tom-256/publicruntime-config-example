@@ -1,6 +1,7 @@
-import Head from 'next/head'
-
-export default function Home() {
+import Head from "next/head";
+import getConfig from "next/config";
+const { publicRuntimeConfig } = getConfig();
+export default function Home({ test }) {
   return (
     <div className="container">
       <Head>
@@ -12,6 +13,7 @@ export default function Home() {
         <h1 className="title">
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
+        <h1>{test}</h1>
 
         <p className="description">
           Get started by editing <code>pages/index.js</code>
@@ -200,5 +202,10 @@ export default function Home() {
         }
       `}</style>
     </div>
-  )
+  );
 }
+Home.getInitialProps = async (ctx) => {
+  const { test } = publicRuntimeConfig;
+  console.log(test);
+  return { test };
+};
